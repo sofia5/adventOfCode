@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 
 def check_passport_validity(passport):
@@ -15,25 +16,39 @@ def check_passport_fields(passport_fields):
 
     while i < len(passport_fields):
         if passport_fields[i][:3] == "byr":
-            passport.append("byr")
+            if int(passport_fields[i][4:8]) >= 1920 and int(passport_fields[i][4:8]) <= 2002:
+                passport.append("byr")
 
         elif passport_fields[i][:3] == "iyr":
-            passport.append("iyr")
+            if int(passport_fields[i][4:8]) >= 2010 and int(passport_fields[i][4:8]) <= 2020:
+                passport.append("iyr")
 
         elif passport_fields[i][:3] == "eyr":
-            passport.append("eyr")
+            if int(passport_fields[i][4:8]) >= 2020 and int(passport_fields[i][4:8]) <= 2030:
+                passport.append("eyr")
 
         elif passport_fields[i][:3] == "hgt":
-            passport.append("hgt")
+            match = re.match(r"([0-9]+)([a-z]+)", passport_fields[i][4:], re.I)
+            if match:
+                height = match.groups()
+                if (int(height[0]) >= 150 and int(height[0]) <= 193 and height[1] == "cm") or (int(height[0]) >= 59 and int(height[0]) <= 76 and height[1] == "in"):
+                    passport.append("hgt")
 
         elif passport_fields[i][:3] == "hcl":
-            passport.append("hcl")
+            match = re.match(r"(#[0-9, a-f]{6})", passport_fields[i][4:], re.I)
+            if match:
+                passport.append("hcl")
 
         elif passport_fields[i][:3] == "ecl":
-            passport.append("ecl")
+            match = re.match(r"^amb$|^blu$|^brn$|^gry$|^grn$|^hzl$|^oth$",
+                             passport_fields[i][4:], re.I)
+            if match:
+                passport.append("ecl")
 
         elif passport_fields[i][:3] == "pid":
-            passport.append("pid")
+            match = re.match(r"([0-9]{9,9}$)", passport_fields[i][4:], re.I)
+            if match:
+                passport.append("pid")
 
         elif passport_fields[i][:3] == "cid":
             passport.append("cid")
@@ -49,18 +64,22 @@ def main():
         lines = [line.rstrip() for line in f]
 
     passport_fields = ""
+    i = 0
     for line in lines:
 
-        if line != "":
-            passport_fields = passport_fields + " " + line
+        passport_fields = passport_fields + " " + line
 
-        else:
+        if line == "" or i == len(lines) - 1:
             passport_fields = passport_fields.split()
+            print(sorted(passport_fields))
             passport = check_passport_fields(passport_fields)
             passport_fields = ""
 
             if check_passport_validity(passport) == True:
                 valid_passports_count += 1
+                print("true")
+
+        i += 1
 
     print(valid_passports_count)
 
