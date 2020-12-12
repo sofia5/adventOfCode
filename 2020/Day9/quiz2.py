@@ -88,8 +88,8 @@ def main():
             break
         index += 1
 
-    numbersBetween = checkContigouosSet(lines[:index], sumValue)
-    smallAndBig = getSmallestAndBiggest(lines, numbersBetween)
+    contigouosSet = checkContigouosSet(lines[:index], sumValue)
+    smallAndBig = getSmallestAndBiggest(lines, contigouosSet)
     print("The sum of the smallest and biggest contigouos numbers generating " +
           str(sumValue) + " is: " + str(smallAndBig[0] + smallAndBig[1]))
 
