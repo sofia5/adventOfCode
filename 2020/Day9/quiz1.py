@@ -11,20 +11,16 @@ def getCorrectSum(numbers, index, sumValue):
     sumOfNumbers = 0
     i1 = 0
 
+    print(numbers, index, sumValue)
     while i1 < len(numbers):
         i2 = 0
-
         while i2 < len(numbers):
-
             if i1 != i2:
                 sumOfNumbers = getSum(numbers, i1, i2)
-
             if sumOfNumbers == sumValue:
                 sumExists = True
                 break
-
             i2 += 1
-
         i1 += 1
 
     return sumExists
@@ -33,6 +29,7 @@ def getCorrectSum(numbers, index, sumValue):
 def main():
     preamble = 25
     index = preamble
+    sumValue = 0
 
     with open(os.path.join(sys.path[0], "input.txt")) as f:
         lines = [int(line.rstrip()) for line in f]
