@@ -41,7 +41,7 @@ def fillIfEmpty(lines, line, index):
         if pos == "L":
             validation = indexValidation(
                 '#', lines, index, line, i, 'no occupied')
-            if (validation):
+            if validation:
                 newLine.append("#")
             else:
                 newLine.append("L")
@@ -49,13 +49,12 @@ def fillIfEmpty(lines, line, index):
         elif pos == "#":
             validation = indexValidation(
                 '#', lines, index, line, i, 'is occupied')
-            if (validation):
+            if validation:
                 newLine.append("L")
             else:
                 newLine.append("#")
         else:
             newLine.append(".")
-    # print(newLine)
     return newLine
 
 
@@ -73,9 +72,8 @@ def main():
 
     with open(os.path.join(sys.path[0], "input.txt")) as f:
         lines = [line.rstrip() for line in f]
-    i = 0
+
     while newLines != lines:
-        # print(i)
         for index, line in enumerate(lines):
             newLines.append(fillIfEmpty(lines, line, index))
 
@@ -84,8 +82,6 @@ def main():
         else:
             lines = newLines.copy()
             newLines = []
-
-        i += 1
 
     takenSeats = countTakenSeats(lines)
     print(takenSeats)
