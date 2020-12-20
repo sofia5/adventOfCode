@@ -89,7 +89,8 @@ def main():
     northSouth = curLocation["N"][0] + curLocation["S"][0]
     eastWest = curLocation["E"][0] + curLocation["W"][0]
 
-    print(northSouth + eastWest)
+    print("The Manhattan distance between current position and the ship's starting position is: " +
+          str(northSouth + eastWest))
 
 
 if __name__ == "__main__":
