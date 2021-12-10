@@ -1,4 +1,14 @@
 
+def getLine(lines, mostOrFewest):
+    index = 0
+
+    while len(lines) > 1:
+        bits = transposeBits(lines)
+        lines = countBinaries(lines, index, bits, mostOrFewest)
+        index += 1
+    return lines
+
+
 def transposeBits(lines):
     bits = [[0 for x in range(len(lines))] for y in range(len(lines[0]))]
     for x, line in enumerate(lines):
@@ -51,26 +61,11 @@ def main():
     with open("input.txt") as f:
         lines = [line.rstrip() for line in f]
 
-    newLines = lines
-    index = 0
-    str1 = ''
+    newLines = getLine(lines, 'most')
+    oxygenGeneratorRating = bitToInt(newLines[0])
 
-    while len(newLines) > 1:
-        bits = transposeBits(newLines)
-        newLines = countBinaries(newLines, index, bits, 'most')
-        index += 1
-
-    oxygenGeneratorRating = bitToInt(str1.join(newLines))
-    newLines = lines
-    index = 0
-    str1 = ''
-
-    while len(newLines) > 1:
-        bits = transposeBits(newLines)
-        newLines = countBinaries(newLines, index, bits, 'fewest')
-        index += 1
-
-    CO2ScrubberRating = bitToInt(str1.join(newLines))
+    newLines = getLine(lines, 'fewest')
+    CO2ScrubberRating = bitToInt(newLines[0])
 
     print(oxygenGeneratorRating * CO2ScrubberRating)
 
