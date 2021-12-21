@@ -16,7 +16,7 @@ def markNumber(board: list, drawnNumber: str):
                 board[rowIndex][colIndex] = '-1'
                 boardProps = {"board": board, "row": rowIndex, "col": colIndex}
                 return boardProps
-    return {}
+    return None
 
 
 def checkIfBingo(board: list, row: int, col: int):
@@ -66,7 +66,7 @@ def main():
         for board in boards:
             if not board.get("won"):
                 boardProps = markNumber(board.get("board"), drawnNumber)
-                if boardProps != {}:
+                if boardProps != None:
                     board["board"] = boardProps.get("board")
                     bingoBoard = checkIfBingo(
                         board, boardProps.get('row'), boardProps.get('col'))
