@@ -17,6 +17,21 @@ def addSegments(diagram, match, lowAndHigh, matchPosition):
     return diagram
 
 
+def addSegmentsDiagonal(diagram, lowAndHigh1, lowAndHigh2, reverse):
+    if not reverse:
+        y = lowAndHigh2.get("low")
+        for x in range(lowAndHigh1.get("low"), lowAndHigh1.get("high") + 1):
+            diagram.append(str(x) + ',' + str(y))
+            y += 1
+    else:
+        y = lowAndHigh2.get("high")
+        for x in range(lowAndHigh1.get("low"), lowAndHigh1.get("high") + 1):
+            diagram.append(str(x) + ',' + str(y))
+            y -= 1
+
+    return diagram
+
+
 def getOverlappingSegments(diagram):
     overlap = 0
     occurrences = Counter(diagram)
@@ -46,6 +61,15 @@ def main():
         elif y1 == y2:
             lowAndHigh = getLowestAndHighest(x1, x2)
             diagram = addSegments(diagram, y1, lowAndHigh, 1)
+        elif x1 + y1 == x2 + y2 or abs(x2 - x1) == abs(y2 - y1):
+            lowAndHigh1 = getLowestAndHighest(x1, x2)
+            lowAndHigh2 = getLowestAndHighest(y1, y2)
+            if str(lowAndHigh1.get("low")) + str(lowAndHigh2.get("low")) == str(x1) + str(y1) or str(lowAndHigh1.get("low")) + str(lowAndHigh2.get("low")) == str(x2) + str(y2):
+                diagram = addSegmentsDiagonal(
+                    diagram, lowAndHigh1, lowAndHigh2, False)
+            else:
+                diagram = addSegmentsDiagonal(
+                    diagram, lowAndHigh1, lowAndHigh2, True)
 
     overlap = getOverlappingSegments(diagram)
     print(overlap)
