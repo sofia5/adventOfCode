@@ -61,11 +61,11 @@ def main():
     with open("input.txt") as f:
         lines = [line.rstrip() for line in f]
 
-    newLines = getLine(lines, 'most')
-    oxygenGeneratorRating = bitToInt(newLines[0])
+    line = getLine(lines, 'most')
+    oxygenGeneratorRating = bitToInt(line[0])
 
-    newLines = getLine(lines, 'fewest')
-    CO2ScrubberRating = bitToInt(newLines[0])
+    line = getLine(lines, 'fewest')
+    CO2ScrubberRating = bitToInt(line[0])
 
     print(oxygenGeneratorRating * CO2ScrubberRating)
 
