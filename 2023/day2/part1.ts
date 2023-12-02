@@ -16,18 +16,18 @@ const cubeColors = Object.keys(cube)
 
 const lines = readInput("day2/input.txt") 
 
-const validateCubeNumber = (numberOfCubes: number, cubeColor: string) => {
+const validateCubeNumber = (numberOfCubes: number, cubeColor: CubeColor) => {
     if(isNaN(numberOfCubes) || !cubeColors.includes(cubeColor)) {
         return false;
     }
 
-    return numberOfCubes <= cube[cubeColor as CubeColor]
+    return numberOfCubes <= cube[cubeColor]
 }
 
 const validateGameSet = (gameSet: string) => {
     const cubesDrawn = gameSet.split(', ').map((cube) => cube.split(' '))
     
-    return cubesDrawn.every((cube) => validateCubeNumber(Number(cube[0]), cube[1]))
+    return cubesDrawn.every((cube) => validateCubeNumber(Number(cube[0]), cube[1] as CubeColor))
 }
 
 const validGameIds = lines.map((line) => {
