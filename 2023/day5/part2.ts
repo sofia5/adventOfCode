@@ -40,7 +40,6 @@ const stepArray = reverse(
 
 let isFinished = false;
 let i = 0;
-const validReturnedNumbers = [];
 
 while (!isFinished) {
   let num = i;
@@ -66,15 +65,12 @@ while (!isFinished) {
         ([start, range]) => num >= start && num <= start + range
       )
     ) {
+      const end = performance.now();
+      console.log(i);
+      console.log(`Run time: ${end - start}`);
       isFinished = true;
-      validReturnedNumbers.push(i);
     }
   }
 
   i++;
 }
-
-const smallestTransformedNumber = Math.min(...validReturnedNumbers);
-
-const end = performance.now();
-console.log(smallestTransformedNumber, end - start);

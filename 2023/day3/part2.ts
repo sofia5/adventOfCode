@@ -1,4 +1,4 @@
-import { readInput } from "../utils.js";
+import { readInput, sumNumbers } from "../utils.js";
 
 type Number = {
   number: number;
@@ -71,9 +71,8 @@ numbers.forEach((number) => {
   }
 });
 
-const sum = Array.from(symbolIndexWithNumberMap.values())
+const nums = Array.from(symbolIndexWithNumberMap.values())
   .filter((arr) => arr.length === 2)
-  .map((arr) => arr.reduce((partialSum, item) => partialSum * item.number, 1))
-  .reduce((partialSum, item) => partialSum + item, 0);
+  .map((arr) => arr.reduce((partialSum, item) => partialSum * item.number, 1));
 
-console.log(sum);
+console.log(sumNumbers(nums));

@@ -1,5 +1,5 @@
 import { intersection } from "lodash-es";
-import { readInput } from "../utils.js";
+import { readInput, sumNumbers } from "../utils.js";
 
 const lines = readInput("day4/input.txt");
 
@@ -29,9 +29,6 @@ lines.map((line, index) => {
   });
 });
 
-const sum = Object.values(cardCopies).reduce(
-  (partialSum, a) => partialSum + a,
-  0
-);
+const sum = sumNumbers(Object.values(cardCopies));
 
 console.log(sum);
